@@ -15,6 +15,7 @@ class gridSimulation:
         self.stepP = stepPunishment
         self.xSize = xLength
         self.ySize = yLength
+        self.reset()
         
     def update(self, action, state):
         if action.lower() == "up":
@@ -81,7 +82,9 @@ class gridSimulation:
             self.currentState.setY(self.ySize/2)
         
     def reset(self):
-        self.currentState = State((rand.randint(-self.xSize/2, self.xSize/2)), rand.randint(-self.ySize/2, self.ySize/2))
+        self.currentState = State(0, 0)
+        while self.checkcurrentState.x == 0 and self.currentState.y ==0:
+            self.currentState = State((rand.randint(-self.xSize/2, self.xSize/2)), rand.randint(-self.ySize/2, self.ySize/2))
         return self.currentState
     
     def getState(self):
