@@ -1,0 +1,11 @@
+params:
+ agent           :  RANDOM
+ xLength         :  10
+ yLength         :  10
+ learning_rate   :  1
+ discount        :  0.1
+ iterations      :  1000
+ sessionLength   :  25
+ goalReward      :  200
+ stepReward      :  5
+ stepPunishment  :  -5
