@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Tue Aug 13 08:38:17 2019
+Created on Tue Aug 13 08:55:26 2019
 
 @author: jsam
 """
 
 from state import State
 
-class randomAgent:
+class optimalAgent:
     
     def __init__(self, learningRate, discount):
         self.learningRate = learningRate

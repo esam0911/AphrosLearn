@@ -1,5 +1,5 @@
 params:
- agent           :  RANDOM
+ agent           :  OPTIMALPOLICY
  xLength         :  10
  yLength         :  10
  learning_rate   :  1

@@ -6,12 +6,13 @@ Created on Sat Aug 10 17:17:40 2019
 """
 
 from state import State
-from simulation import gridSimulation as sim
-from randomAgent import randomAgent
+from envs.simulation import gridSimulation as sim
+from agents.randomAgent import randomAgent
 import random
 import csv
 import yaml
 import matplotlib.pyplot as plt
+from agents.OptimalPolicyAgent import optimalAgent
 
 
 
@@ -29,6 +30,8 @@ class framework:
         # select agent
         if self.agent == 'RANDOM':
             agent = randomAgent(learningRate=self.learning_rate, discount=self.discount)
+        elif self.agent == 'OPTIMALPOLICY':
+            agent = optimalAgent(learningRate=self.learning_rate, discount=self.discount)
         else:
             print("Invalid selection. Please try again.")
             return
@@ -70,9 +73,10 @@ class framework:
             
         plt.xlabel('Session Number')
         plt.ylabel('Total Reward Earned')
+        plt.ylim(bottom=-5000, top=250000)
         plt.title('Total Reward Earned Over Time')
         plt.legend()
-        plt.savefig(str(self.agent.lower())+'AgentTrainingResults.png', bbox_inches = 'tight')
+        plt.savefig(str("results/"+self.agent.lower())+'AgentTrainingResults.png', bbox_inches = 'tight')
         plt.show()
         
     def loadParams(self, fileName):
