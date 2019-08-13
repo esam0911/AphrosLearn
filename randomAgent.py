@@ -10,12 +10,11 @@ import random
 
 class randomAgent:
     
-    def __init__(self, initialState, learningRate, discount):
-        self.state = initialState
+    def __init__(self, learningRate, discount):
         self.learningRate = learningRate
         self.discount = discount
 
-    def update(oldState, nextState, reward, action):
+    def update(self, oldState, nextState, reward, action):
         pass
     
     def get_next_action(self, state):
