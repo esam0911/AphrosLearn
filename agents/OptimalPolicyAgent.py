@@ -6,11 +6,13 @@ Created on Tue Aug 13 08:55:26 2019
 @author: jsam
 """
 
+import sys
+sys.path.append("/home/jsam/GitHub/AphrosLearn")
 from state import State
 
 class optimalAgent:
     
-    def __init__(self, learningRate, discount):
+    def __init__(self, learningRate, discount, xLength, yLength):
         self.learningRate = learningRate
         self.discount = discount
 

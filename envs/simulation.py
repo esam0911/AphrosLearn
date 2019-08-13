@@ -4,6 +4,10 @@ Created on Fri Aug  9 21:48:09 2019
 
 @author: josia
 """
+
+import sys
+sys.path.append("/home/jsam/GitHub/AphrosLearn")
+
 from state import State
 import random as rand
 
@@ -82,7 +86,7 @@ class gridSimulation:
     def reset(self):
         self.currentState = State(0, 0)
         while self.currentState.x == 0 and self.currentState.y ==0:
-            self.currentState = State((rand.randint(-self.xSize/2, self.xSize/2)), rand.randint(-self.ySize/2, self.ySize/2))
+            self.currentState = State((rand.randint(int(-self.xSize/2), int(self.xSize/2))), rand.randint(int(-self.ySize/2), int(self.ySize/2)))
         return self.currentState
     
     def getState(self):

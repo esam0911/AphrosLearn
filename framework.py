@@ -6,20 +6,22 @@ Created on Sat Aug 10 17:17:40 2019
 """
 
 from state import State
-from envs.simulation import gridSimulation as sim
-from agents.randomAgent import randomAgent
 import random
 import csv
 import yaml
 import matplotlib.pyplot as plt
+from envs.simulation import gridSimulation as sim
+from agents.randomAgent import randomAgent
 from agents.OptimalPolicyAgent import optimalAgent
-
+from agents.QLearnAgent import qLearnAgent
+from enums import *
 
 
 class framework:
     
-    def __init__(self, fileName):
+    def __init__(self, fileName='params', debug = False):
         success = self.loadParams(fileName)
+        self.debug = debug
         if success:
             self.train()
         else:
@@ -29,9 +31,11 @@ class framework:
         dungeon = sim(self.goalReward, self.stepReward, self.stepPunishment, self.xLength, self.yLength)
         # select agent
         if self.agent == 'RANDOM':
-            agent = randomAgent(learningRate=self.learning_rate, discount=self.discount)
+            agent = randomAgent(learningRate=self.learning_rate, discount=self.discount, xLength=self.xLength, yLength=self.yLength)
         elif self.agent == 'OPTIMALPOLICY':
-            agent = optimalAgent(learningRate=self.learning_rate, discount=self.discount)
+            agent = optimalAgent(learningRate=self.learning_rate, discount=self.discount, xLength=self.xLength, yLength=self.yLength)
+        elif self.agent == 'QLEARN':
+            agent = qLearnAgent(self.learning_rate, self.discount, self.xLength, self.yLength, self.iterations, self.explorationRate)
         else:
             print("Invalid selection. Please try again.")
             return
@@ -58,13 +62,15 @@ class framework:
                         print("There was an error with one of the actions chosen.")
                         return
                     agent.update(old_state, new_state, action, reward) # Let the agent update internals
-            
+                    if self.debug:
+                        print(agent.qTable)
+                        test = input()
                     total_reward += reward # Keep score
                     
                     if reward == self.goalReward:
                         print("\nWe made it to the goal on episode "+str(i)+" and session "+str(j))
                         break
-                print("The total reward for episode "+str(i)+" session "+str(j)+" is "+str(total_reward)+'\n')
+                #print("The total reward for episode "+str(i)+" session "+str(j)+" is "+str(total_reward)+'\n')
                 total_global_reward += total_reward
                 x_session.append(i)
                 y_total_reward.append(total_global_reward)
@@ -73,11 +79,12 @@ class framework:
             
         plt.xlabel('Session Number')
         plt.ylabel('Total Reward Earned')
-        plt.ylim(bottom=-5000, top=250000)
+        #plt.ylim(bottom=-5000, top=250000)
         plt.title('Total Reward Earned Over Time')
         plt.legend()
         plt.savefig(str("results/"+self.agent.lower())+'AgentTrainingResults.png', bbox_inches = 'tight')
         plt.show()
+        print(agent.qTable)
         
     def loadParams(self, fileName):
         try:
@@ -97,6 +104,7 @@ class framework:
                     self.stepReward = paramsMap['stepReward']
                     self.stepPunishment = paramsMap['stepPunishment']
                     self.trainingRuns = paramsMap['training_runs']
+                    self.explorationRate = paramsMap['exploration_rate']
             params.close()
             return True
                     
