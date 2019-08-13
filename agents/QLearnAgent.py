@@ -21,7 +21,6 @@ class qLearnAgent:
         self.discount = discount
         self.explorationRate = explorationRate
         self.explorationDelta = 1.0/float(iterations)
-        print(self.explorationDelta)
 
     def update(self, oldState, nextState, action, reward):
         old_value = self.qTable[int(oldState.x)][int(oldState.y)][int(self.convertActionToInt(action))]
@@ -54,7 +53,7 @@ class qLearnAgent:
         best_move = 0
         table_state = self.qTable[int(state.x+(self.xLength/2))][int(state.y+(self.yLength/2))]
         for i in range(len(table_state)):
-            if table_state[i] < table_state[best_move]:
+            if table_state[i] > table_state[best_move]:
                 best_move = i
         if table_state[best_move] == 0:
             return self.get_random_action()

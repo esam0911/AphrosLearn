@@ -74,14 +74,14 @@ class gridSimulation:
     
     def checkcurrentState(self):
         if(self.currentState.x<(-self.xSize/2)):
-            self.currentState.setX(-self.xSize/2)
+            self.currentState.setX(int(-self.xSize/2))
         elif(self.currentState.x>(self.xSize/2)):
-            self.currentState.setX(self.xSize/2)
+            self.currentState.setX(int(self.xSize/2))
             
         if(self.currentState.y<(-self.ySize/2)):
-            self.currentState.setY(-self.ySize/2)
+            self.currentState.setY(int(-self.ySize/2))
         elif(self.currentState.y>(self.ySize/2)):
-            self.currentState.setY(self.ySize/2)
+            self.currentState.setY(int(self.ySize/2))
         
     def reset(self):
         self.currentState = State(0, 0)
