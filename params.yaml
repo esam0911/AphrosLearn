@@ -9,3 +9,4 @@ params:
  goalReward      :  200
  stepReward      :  5
  stepPunishment  :  -5
+ training_runs   :  5
