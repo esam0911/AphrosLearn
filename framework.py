@@ -90,7 +90,9 @@ class framework:
             plt.ylim(top=(self.goalReward+2*self.sessionLength)*self.iterations)
         plt.title('Total Reward Earned Over Time - '+str(self.agent.lower())+'\n'+str(self.xLength)+'x'+str(self.yLength))
         plt.legend()
-        plt.savefig(str("results/"+self.agent.lower())+'AgentTrainingResults'+str(self.xLength)+'x'+str(self.yLength)+'.png', bbox_inches = 'tight')
+        self.fileName = "results/"+self.agent.lower()+'AgentTrainingResults'+str(self.xLength)+'x'+str(self.yLength)
+        self.exportParams()
+        plt.savefig(str(self.fileName)+'.png', bbox_inches = 'tight')
         plt.show()
         
     def loadParams(self, fileName):
@@ -120,4 +122,22 @@ class framework:
             print(ex)
             print("There was an error loading the values.")
             return False
+            
+    def exportParams(self):
+        print("Exportting parameters to the results file...")
+        fileHandler =  open(self.fileName+'.txt', 'w+')
+        fileHandler.write("Agent \t\t\t:\t "+str(self.agent)+"\n"+
+                          "xLength \t\t:\t "+str(self.xLength)+"\n"+
+                          "yLength \t\t:\t "+str(self.yLength)+"\n"+
+                          "learning_rate \t\t:\t "+str(self.learning_rate)+"\n"+
+                          "discount \t\t:\t "+str(self.discount)+"\n"+
+                          "iterations \t\t:\t " + str(self.iterations)+"\n" +
+                          "sessionLength \t\t:\t "+str(self.sessionLength)+"\n" +
+                          "goalReward \t\t:\t "+str(self.goalReward)+"\n" +
+                          "stepReard \t\t:\t "+str(self.stepReward)+"\n"+
+                          "stepPunishment \t\t:\t "+str(self.stepPunishment)+"\n"+
+                          "training_runs \t\t:\t "+str(self.trainingRuns)+"\n"+
+                          "explorations_rate \t:\t "+str(self.explorationRate)+"\n"+
+                          "comprehensive_test \t:\t "+str(self.comprehensive_test)+"\n")
+        fileHandler.close()
             
