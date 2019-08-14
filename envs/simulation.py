@@ -4,6 +4,10 @@ Created on Fri Aug  9 21:48:09 2019
 
 @author: josia
 """
+
+import sys
+sys.path.append("../../AphrosLearn")
+
 from state import State
 import random as rand
 
@@ -70,19 +74,19 @@ class gridSimulation:
     
     def checkcurrentState(self):
         if(self.currentState.x<(-self.xSize/2)):
-            self.currentState.setX(-self.xSize/2)
+            self.currentState.setX(int(-self.xSize/2))
         elif(self.currentState.x>(self.xSize/2)):
-            self.currentState.setX(self.xSize/2)
+            self.currentState.setX(int(self.xSize/2))
             
         if(self.currentState.y<(-self.ySize/2)):
-            self.currentState.setY(-self.ySize/2)
+            self.currentState.setY(int(-self.ySize/2))
         elif(self.currentState.y>(self.ySize/2)):
-            self.currentState.setY(self.ySize/2)
+            self.currentState.setY(int(self.ySize/2))
         
     def reset(self):
         self.currentState = State(0, 0)
         while self.currentState.x == 0 and self.currentState.y ==0:
-            self.currentState = State((rand.randint(-self.xSize/2, self.xSize/2)), rand.randint(-self.ySize/2, self.ySize/2))
+            self.currentState = State((rand.randint(int(-self.xSize/2), int(self.xSize/2))), rand.randint(int(-self.ySize/2), int(self.ySize/2)))
         return self.currentState
     
     def getState(self):

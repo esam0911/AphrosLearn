@@ -4,13 +4,16 @@ Created on Fri Aug  9 22:39:59 2019
 
 @author: josia
 """
-from state import State
 
+
+import sys
+sys.path.append("/home/jsam/GitHub/AphrosLearn")
+from state import State
 import random
 
 class randomAgent:
     
-    def __init__(self, learningRate, discount):
+    def __init__(self, learningRate, discount, xLength, yLength):
         self.learningRate = learningRate
         self.discount = discount
 

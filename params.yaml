@@ -1,12 +1,13 @@
 params:
- agent           :  RANDOM
- xLength         :  10
- yLength         :  10
- learning_rate   :  1
- discount        :  0.1
+ agent           :  QLEARN #OPTIMALPOLICY ## #RANDOM
+ xLength         :  1000
+ yLength         :  1000
+ learning_rate   :  0.001
+ discount        :  0.95
  iterations      :  1000
- sessionLength   :  25
+ sessionLength   :  500
  goalReward      :  200
  stepReward      :  5
  stepPunishment  :  -5
  training_runs   :  5
+ exploration_rate:  1.0
