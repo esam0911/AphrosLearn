@@ -7,7 +7,7 @@ Created on Tue Aug 13 09:25:29 2019
 """
 
 import sys
-sys.path.append("/home/jsam/GitHub/AphrosLearn")
+sys.path.append("../../AphrosLearn")
 from state import State
 import random
 
@@ -23,11 +23,14 @@ class qLearnAgent:
         self.explorationDelta = 1.0/float(iterations)
 
     def update(self, oldState, nextState, action, reward):
-        old_value = self.qTable[int(oldState.x)][int(oldState.y)][int(self.convertActionToInt(action))]
+        old_value = self.qTable[int(oldState.x+(self.xLength/2))][int(oldState.y-(self.yLength/2))][int(self.convertActionToInt(action))]
+        
         future_action = self.get_best_action(nextState)
-        future_reward = self.qTable[int(nextState.x)][int(nextState.y)][int(self.convertActionToInt(future_action))]
-        new_value = old_value + self.learningRate * (reward + self.discount * future_reward - old_value)
-        self.qTable[int(oldState.x)][int(oldState.y)][int(self.convertActionToInt(action))] = new_value
+        future_reward = self.qTable[int(nextState.x+(self.xLength/2))][int(nextState.y-(self.yLength/2))][int(self.convertActionToInt(future_action))]
+        
+        new_value = old_value + self.learningRate*(reward + (self.discount * future_reward) - old_value)
+        
+        self.qTable[int(oldState.x+(self.xLength/2))][int(oldState.y-(self.yLength/2))][int(self.convertActionToInt(action))] = new_value
         
         if self.explorationRate > 0:
             self.explorationRate -= self.explorationDelta
@@ -51,20 +54,30 @@ class qLearnAgent:
         
     def get_best_action(self, state):
         best_move = 0
-        table_state = self.qTable[int(state.x+(self.xLength/2))][int(state.y+(self.yLength/2))]
+        table_state = self.qTable[int(state.x+(self.xLength/2))][int(state.y-(self.yLength/2))]
+# =============================================================================
+#         print(table_state)
+#         print("Current state:", state.x, state.y)
+# =============================================================================
         for i in range(len(table_state)):
             if table_state[i] > table_state[best_move]:
                 best_move = i
         if table_state[best_move] == 0:
+            
+            #print("randomMove")
             return self.get_random_action()
         
         if best_move == 0:
+            #print("up")
             return 'up'
         elif best_move == 1:
+            #print("down")
             return 'down'
         elif best_move == 2:
+            #print("left")
             return 'left'
         else:
+            #print("right")
             return 'right'
         
     def convertActionToInt(self, action):

@@ -14,7 +14,6 @@ from envs.simulation import gridSimulation as sim
 from agents.randomAgent import randomAgent
 from agents.OptimalPolicyAgent import optimalAgent
 from agents.QLearnAgent import qLearnAgent
-from enums import *
 
 
 class framework:
@@ -70,7 +69,7 @@ class framework:
                     if reward == self.goalReward:
                         print("\nWe made it to the goal on episode "+str(i)+" and session "+str(j))
                         break
-                #print("The total reward for episode "+str(i)+" session "+str(j)+" is "+str(total_reward)+'\n')
+                print("The total reward for episode "+str(i)+" session "+str(j)+" is "+str(total_reward)+'\n')
                 total_global_reward += total_reward
                 x_session.append(i)
                 y_total_reward.append(total_global_reward)
@@ -79,12 +78,11 @@ class framework:
             
         plt.xlabel('Session Number')
         plt.ylabel('Total Reward Earned')
-        #plt.ylim(bottom=-5000, top=250000)
-        plt.title('Total Reward Earned Over Time')
+        plt.ylim(bottom=-5000, top=2500000)
+        plt.title('Total Reward Earned Over Time - '+str(self.agent.lower())+'\n'+str(self.xLength)+'x'+str(self.yLength))
         plt.legend()
-        plt.savefig(str("results/"+self.agent.lower())+'AgentTrainingResults.png', bbox_inches = 'tight')
+        plt.savefig(str("results/"+self.agent.lower())+'AgentTrainingResults'+str(self.xLength)+'x'+str(self.yLength)+'.png', bbox_inches = 'tight')
         plt.show()
-        print(agent.qTable)
         
     def loadParams(self, fileName):
         try:

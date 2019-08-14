@@ -9,7 +9,6 @@ Created on Fri Aug  9 22:39:59 2019
 import sys
 sys.path.append("/home/jsam/GitHub/AphrosLearn")
 from state import State
-from enums import *
 import random
 
 class randomAgent:

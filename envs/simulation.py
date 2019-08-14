@@ -6,7 +6,7 @@ Created on Fri Aug  9 21:48:09 2019
 """
 
 import sys
-sys.path.append("/home/jsam/GitHub/AphrosLearn")
+sys.path.append("../../AphrosLearn")
 
 from state import State
 import random as rand
