@@ -12,3 +12,4 @@ params:
  training_runs      :  1
  exploration_rate   :  1.0
  comprehensive_test :  True
+ test_commit        :  True
